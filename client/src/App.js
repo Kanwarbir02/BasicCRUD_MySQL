@@ -2,6 +2,7 @@ import "./bootstrap.css"
 import './App.css';
 import {Form, Button} from "react-bootstrap"
 import { useState } from "react";
+import Axios from "axios";
 
 function App() {
 
@@ -9,6 +10,21 @@ function App() {
   const [age, setAge] = useState(0);
   const [location, setLocation] = useState("");
   const [id, setId] = useState(0);
+
+  const addUser = () => {
+    Axios.post("http://localhost:5000/create", {
+      name: name,
+      age: age,
+      location: location,
+      id: id
+    })
+      .then(() => {
+        console.log("User added successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      <Form className='infoform' onSubmit={handleSubmit}>
+      <Form className='infoform' onSubmit={addUser}>
           <Form.Group className="mb-3" controlId="formBasicEmail" className='formGroup'>
             <Form.Label>Name</Form.Label><br/>
             <Form.Control type="text" placeholder="Enter Name" className='formInput' onChange={(e) => {setName(e.target.value)}} name="name" />
@@ -41,7 +57,7 @@ function App() {
           <Form.Group className="mb-3" controlId="formBasicCheckbox" className='formGroup'>
             <Form.Check type="checkbox" label="Check me out" />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" onClick={addUser}>
             Submit
           </Button>
         </Form>

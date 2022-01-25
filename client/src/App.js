@@ -29,7 +29,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Succesfully Submitted")
+    // console.log("Succesfully Submitted");
   }
 
   return (

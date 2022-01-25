@@ -3,6 +3,7 @@ const dotenv = require("dotenv").config()
 const cors = require("cors");
 
 const mysql = require("mysql");
+const e = require("express");
 // const { json } = require("express");
 
 const app = express();
@@ -41,6 +42,17 @@ app.post("/create", (req,res) => {
             }
         }
     )
+})
+
+app.get("/users", (req,res) => {
+    db.query("SELECT * FROM new_table", (err, result) => {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.json(result);
+        }
+    })
 })
 
 app.listen(5000, () => {
